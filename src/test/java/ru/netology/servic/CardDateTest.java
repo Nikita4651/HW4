@@ -34,12 +34,12 @@ class CardTest {
                 .perform();
         /*SelenideElement form = $("form").find(Condition.visible);*/
 
-        $("[type='tel']")
+        $(".icon-button").click();
 
                 //.shouldBe(Condition.visible)
                 //.shouldBe(Condition.enabled).setValue(planningDate)
-                .press(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE)
-                .setValue("02.07.2026");
+                //.press(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE)
+               // .setValue("03.07.2026");
         $("[name='name']").setValue("Осепчук Никита");
         $("[name='phone']").setValue("+79110126430");
         $("[data-test-id='agreement']").click();
@@ -50,8 +50,7 @@ class CardTest {
                 .should(Condition.visible, Duration.ofSeconds(15))
                 .should(Condition.visible);
         String expectedFragment = planningDate;
-        String actualText = $(Selectors.withText("Встреча успешно забронирована на"))
-                .getText();
+        String actualText = $(Selectors.withText("Встреча успешно забронирована на")).getText();
 
 
     }
