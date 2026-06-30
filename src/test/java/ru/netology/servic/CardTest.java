@@ -4,7 +4,7 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selectors;
 
 
-
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
@@ -23,6 +23,7 @@ import static com.codeborne.selenide.Selenide.*;
 class CardTest {
     public String generateDate(int days, String pattern) {
         return LocalDate.now().plusDays(days).format(DateTimeFormatter.ofPattern(pattern));
+
     }
 
     @Test
@@ -52,10 +53,22 @@ class CardTest {
 
     @Test
     void shouldRegisterCardDelivery() {
+        String planningDate = generateDate(7, "dd.MM.yyyy");
         open("http://localhost:9999");
         $("[data-test-id='city'] input").setValue("Ко");
         $$("div.popup__content div").find(exactText("Кострома")).click();
         $("[data-test-id='date'] button").click();
+
+        $("[data-test-id='date'] span.input__box [placeholder='Дата встречи']")
+                .doubleClick().sendKeys(planningDate);
+        $("[data-test-id='name'] input").setValue("Осепчук Никита");
+        $("[data-test-id='phone'] input").setValue("+79110126430");
+        $("[data-test-id='agreement']").click();
+
+        $(Selectors.withText("Забронировать")).click();
+        $("div[data-test-id='notification']")
+                .shouldBe(Condition.visible, Duration.ofSeconds(15))
+                .shouldHave(Condition.text("Встреча успешно забронирована на"));
 
     }
 }
