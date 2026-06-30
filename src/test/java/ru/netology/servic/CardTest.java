@@ -20,21 +20,27 @@ import static com.codeborne.selenide.Selenide.*;
 
 
 class CardTest {
-    public String generateDate(int days, int month, int year, String pattern) {
+    public String generateDate(int days, String pattern) {
+        return LocalDate.now()
+                .plusDays(days)
+                .format(DateTimeFormatter.ofPattern(pattern));
+
+
+    }
+
+    public String generateDateMonthYear(int days, int month, int year, String pattern) {
         return LocalDate.now()
                 .plusDays(days)
                 .plusMonths(month)
                 .plusYears(year)
                 .format(DateTimeFormatter.ofPattern(pattern));
-
-
     }
 
 
     @Test
     void cardWithDeliveryTest() {
 
-        String planningDate = generateDate(4, 0, 0, "dd.MM.yyyy");
+        String planningDate = generateDate(4, "dd.MM.yyyy");
         open("http://localhost:9999");
         $("[data-test-id='city'] input").setValue("Кострома");
 
@@ -57,9 +63,9 @@ class CardTest {
 
     @Test
     void shouldRegisterCardDelivery() {
-        // String planningMonth = generateDateForMonth( 9, "dd.MM.yyyy");
 
-        String planningDate = generateDate(9, 7, 4, "dd.MM.yyyy");
+
+        String planningDate = generateDateMonthYear(9, 7, 4, "dd.MM.yyyy");
         open("http://localhost:9999");
         $("[data-test-id='city'] input").setValue("Ко");
         $$("div.popup__content div").find(exactText("Кострома")).click();
