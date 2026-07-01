@@ -49,13 +49,14 @@ class CardTest {
         $$("div.popup__content div").find(exactText("Кострома")).click();
         String planningDate = generateDate(4, "dd.MM.yyyy");
         $("[data-test-id='date'] input").click();
-        if (!generateDate(3, "MM").equals(generateDate(10, "MM"))) {
-            $("[data-step='1']")
-                    .click();
+        $("[data-step='1']")
+                .click();
+        if  (!generateDate(3, "MM").equals(generateDate(7, "MM"))) {
+
         }
 
         $$(".calendar__layout")
-                .find(Condition.text(generateDate(7, "d")))
+                .find(Condition.text(generateDate(7с, "d")))
                 .click();
         $("[data-test-id='name'] input").setValue("Осепчук Никита");
         $("[data-test-id='phone'] input").setValue("+79110126430");
