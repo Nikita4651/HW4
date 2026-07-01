@@ -56,7 +56,7 @@ class CardTest {
         }
 
         $$(".calendar__layout")
-                .find(Condition.text(generateDate(7с, "d")))
+                .find(Condition.text(generateDate(7, "d")))
                 .click();
         $("[data-test-id='name'] input").setValue("Осепчук Никита");
         $("[data-test-id='phone'] input").setValue("+79110126430");
