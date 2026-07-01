@@ -47,13 +47,13 @@ class CardTest {
         open("http://localhost:9999");
         $("[data-test-id='city'] input").setValue("Ко");
         $$("div.popup__content div").find(exactText("Кострома")).click();
-        String planningDate = generateDate(12, "dd.MM.yyyy");
+        String planningDate = generateDate(4, "dd.MM.yyyy");
         $("[data-test-id='date'] input").click();
-        if (!generateDate(3, "MM").equals(generateDate(7, "MM"))) {
-
+        if (!generateDate(3, "MM").equals(generateDate(10, "MM"))) {
+            $("[data-step='1']")
+                    .click();
         }
-        $("[data-step='1']")
-                .click();
+
         $$(".calendar__layout")
                 .find(Condition.text(generateDate(7, "d")))
                 .click();
